@@ -1,18 +1,38 @@
-from flask import Flask, request, session, g, redirect, url_for, \
-    abort, render_template, flash
+from flask import Flask, g, jsonify, request
 from db import connect_to_database, init_db
+import calendar
+import datetime
 
 app = Flask(__name__, static_folder='../static', static_url_path='')
-DATABASE = 'fmillib.db'
+DATABASE = '/home/kaygrodov/projects/millib/fmillib/fmillib.db'
 DEBUG = True
 app.config.from_object(__name__)
 
-init_db(connect_to_database())
+#init_db(connect_to_database())
+
 
 @app.route('/')
 def root():
     return app.send_static_file('app/index.html')
 
+
+@app.route('/get_btc_logs', methods=['POST'])
+def get_btc_logs():
+    NUM_OF_DAYS = 90
+
+    since = int(request.form.get('since', 0))
+
+    min_time = datetime.datetime.now() - datetime.timedelta(days=NUM_OF_DAYS)
+    min_time_ts = calendar.timegm(min_time.utctimetuple())
+
+    if since < min_time_ts:
+        since = min_time_ts
+
+    cur = g.db.execute("SELECT * FROM btc_log WHERE ts>:since ORDER BY ts",
+                       dict(since=since))
+    rv = cur.fetchall()
+    cur.close()
+    return jsonify({'btc_logs': rv})
 
 @app.before_request
 def before_request():

@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "angular": "~1.2.2",
-    "bootstrap": "~3.0.2"
+    "bootstrap": "~3.0.2",
+    "angularjs-nvd3-directives": "~0.0.2-beta"
   }
 }

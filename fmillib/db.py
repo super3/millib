@@ -13,15 +13,6 @@ def connect_to_database():
     return conn
 
 
-def query_db(conn, query, args=(), one=False):
-    cur = conn.execute(query, args)
-    rv = cur.fetchall()
-    conn.commit()
-    cur.close()
-
-    return (rv[0] if rv else None) if one else rv
-
-
 def init_db(conn):
     from fmillib import app
     with app.app_context():

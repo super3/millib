@@ -13,11 +13,26 @@
                     <i class="fa fa-money"></i>
                     Stats
                 </h4>
+                <actions>
+                    <a href="#"></a>
+                </actions>
             </header>
             <div class="body no-margin">
-                <div id="visits-chart" class="chart visits-chart">
+                <nvd3-line-chart
+                        data="chartData "
+                        id="exampleId"
+                        width="800"
+                        height="400"
+                        showXAxis="true"
+                        showYAxis="true"
+                        tooltips="true"
+                        interactive="true"
+                        xAxisTickValues="[1378387500, 1378388100, 1378389900]"
+                        xAxisTickFormat="xAxisTickFormatFunction()"
+                        margin="{left:50,top:50,bottom:50,right:50}"
+                        >
                     <svg></svg>
-                </div>
+                </nvd3-line-chart>
             </div>
         </section>
     </div>
@@ -30,34 +45,19 @@
                 </h4>
             </header>
             <div class="body">
-                <div id="feed" class="feed">
+                <div id="feed" class="feed" style="overflow-y: scroll">
                     <div class="wrapper">
-                        <div class="vertical-line"></div>
-                        <section class="feed-item">
+                        <section class="feed-item" ng-repeat="btcLog in btcLogs">
                             <div class="icon pull-left">
                                 <i class="fa fa-money"></i>
                             </div>
                             <div class="feed-item-body">
                                 <div class="text">
-                                    Average: <b>965.14</b> <br />
-                                    <small>ask: 978.85, bid: 976.31</small>
+                                    Average: <b>{{ btcLog.24h_avg }}</b> <br />
+                                    <small>ask: {{ btcLog.ask }}, bid: {{ btcLog.bid}}</small>
                                 </div>
                                 <div class="time pull-left">
-                                    3 h
-                                </div>
-                            </div>
-                        </section>
-                        <section class="feed-item">
-                            <div class="icon pull-left">
-                                <i class="fa fa-money"></i>
-                            </div>
-                            <div class="feed-item-body">
-                                <div class="text">
-                                    Average: <b>935.14</b> <br />
-                                    <small>ask: 928.85, bid: 916.31</small>
-                                </div>
-                                <div class="time pull-left">
-                                    4 h
+                                    {{ btcLog.date | date:'medium' }}
                                 </div>
                             </div>
                         </section>

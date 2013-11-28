@@ -3,6 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('millibApp', [
+  'nvd3ChartDirectives',
   'ngRoute',
   'millibApp.filters',
   'millibApp.services',
