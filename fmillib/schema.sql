@@ -1,6 +1,5 @@
-drop table btc_log;
 CREATE TABLE IF NOT EXISTS btc_log(
-   id INT INTEGER PRIMARY KEY,
+   id INTEGER PRIMARY KEY,
    '24h_avg' REAL NOT NULL,
    ask REAL NOT NULL,
    bid REAL NOT NULL,

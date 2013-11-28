@@ -18,6 +18,11 @@ def root():
 
 @app.route('/get_btc_logs', methods=['POST'])
 def get_btc_logs():
+    """
+    Returns the btc_logs from "since" to now.
+    If "since" is less than (now - NUM_OF_DAYS) then It returns btc_logs
+    for the last NUM_OF_DAYS days
+    """
     NUM_OF_DAYS = 90
 
     since = int(request.form.get('since', 0))
