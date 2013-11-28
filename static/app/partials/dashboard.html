@@ -13,23 +13,18 @@
                     <i class="fa fa-money"></i>
                     Stats
                 </h4>
-                <actions>
-                    <a href="#"></a>
-                </actions>
             </header>
-            <div class="body no-margin">
+            <div class="body no-margin" style="height: 295px;">
                 <nvd3-line-chart
+                        showlegend="true"
                         data="chartData "
                         id="exampleId"
-                        width="800"
-                        height="400"
                         showXAxis="true"
                         showYAxis="true"
                         tooltips="true"
                         interactive="true"
-                        xAxisTickValues="[1378387500, 1378388100, 1378389900]"
+                        margin="{left:70,top:50,bottom:50,right:50}"
                         xAxisTickFormat="xAxisTickFormatFunction()"
-                        margin="{left:50,top:50,bottom:50,right:50}"
                         >
                     <svg></svg>
                 </nvd3-line-chart>
