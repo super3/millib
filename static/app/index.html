@@ -3,17 +3,105 @@
 <head>
   <meta charset="utf-8">
   <title>Bitcoin price checker in mBTC</title>
-  <link href="/lib/light-blue/css/application.css" rel="stylesheet">
+  <link href="/lib/light-blue/css/application.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
 
-  <div ng-view></div>
+<body class="background-dark">
+<div class="logo">
+    <h4><a href="/#">Millib</a></h4>
+</div>
 
-  <div>Bitcoin price checker in mBTC: <span app-version></span></div>
+
+<nav id="sidebar" class="sidebar nav-collapse collapse">
+    <ul id="side-nav" class="side-nav">
+        <li class="active">
+            <a href="/#"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
+        </li>
+        <li>
+            <a href="/#about"><i class="fa fa-info"></i> <span class="name">About</span></a>
+        </li>
+    </ul>
+</nav>
+
+<div class="wrap">
+    <header class="page-header">
+        <div class="navbar">
+        </div>
+    </header>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-title">Dashboard <small>Bitcoin price checker in <b>mBTC</b></small></h2>
+            </div>
+        </div>
+
+
+        <div class="row">
+        <div class="col-md-8">
+        <section class="widget">
+            <header>
+                <h4>
+                    <i class="fa fa-money"></i>
+                    Stats
+                </h4>
+            </header>
+            <div class="body no-margin">
+                <div id="visits-chart" class="chart visits-chart">
+                    <svg></svg>
+                </div>
+            </div>
+        </section>
+        </div>
+        <div class="col-md-4">
+            <section class="widget large">
+                <header>
+                    <h4>
+                        <i class="eicon-share"></i>
+                        Stat feed
+                    </h4>
+                </header>
+                <div class="body">
+                    <div id="feed" class="feed">
+                        <div class="wrapper">
+                            <div class="vertical-line"></div>
+                            <section class="feed-item">
+                                <div class="icon pull-left">
+                                    <i class="fa fa-money"></i>
+                                </div>
+                                <div class="feed-item-body">
+                                    <div class="text">
+                                        Average: <b>965.14</b> <br />
+                                        <small>ask: 978.85, bid: 976.31</small>
+                                    </div>
+                                    <div class="time pull-left">
+                                        3 h
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="feed-item">
+                                <div class="icon pull-left">
+                                    <i class="fa fa-money"></i>
+                                </div>
+                                <div class="feed-item-body">
+                                    <div class="text">
+                                        Average: <b>935.14</b> <br />
+                                        <small>ask: 928.85, bid: 916.31</small>
+                                    </div>
+                                    <div class="time pull-left">
+                                        4 h
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    </div>
+</div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
