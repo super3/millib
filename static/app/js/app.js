@@ -10,7 +10,7 @@ angular.module('millibApp', [
   'millibApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {templateUrl: '/app/partials/partial1.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/view2', {templateUrl: '/app/partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/dashboard', {templateUrl: '/app/partials/dashboard.html', controller: 'DashboardCtrl'});
+  $routeProvider.when('/about', {templateUrl: '/app/partials/about.html', controller: 'AboutCtrl'});
+  $routeProvider.otherwise({redirectTo: '/dashboard'});
 }]);

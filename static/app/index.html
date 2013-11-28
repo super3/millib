@@ -16,7 +16,7 @@
 
 <nav id="sidebar" class="sidebar nav-collapse collapse">
     <ul id="side-nav" class="side-nav">
-        <li class="active">
+        <li>
             <a href="/#"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
         </li>
         <li>
@@ -31,79 +31,9 @@
         </div>
     </header>
 
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="page-title">Dashboard <small>Bitcoin price checker in <b>mBTC</b></small></h2>
-            </div>
-        </div>
-
-
-        <div class="row">
-        <div class="col-md-8">
-        <section class="widget">
-            <header>
-                <h4>
-                    <i class="fa fa-money"></i>
-                    Stats
-                </h4>
-            </header>
-            <div class="body no-margin">
-                <div id="visits-chart" class="chart visits-chart">
-                    <svg></svg>
-                </div>
-            </div>
-        </section>
-        </div>
-        <div class="col-md-4">
-            <section class="widget large">
-                <header>
-                    <h4>
-                        <i class="eicon-share"></i>
-                        Stat feed
-                    </h4>
-                </header>
-                <div class="body">
-                    <div id="feed" class="feed">
-                        <div class="wrapper">
-                            <div class="vertical-line"></div>
-                            <section class="feed-item">
-                                <div class="icon pull-left">
-                                    <i class="fa fa-money"></i>
-                                </div>
-                                <div class="feed-item-body">
-                                    <div class="text">
-                                        Average: <b>965.14</b> <br />
-                                        <small>ask: 978.85, bid: 976.31</small>
-                                    </div>
-                                    <div class="time pull-left">
-                                        3 h
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="feed-item">
-                                <div class="icon pull-left">
-                                    <i class="fa fa-money"></i>
-                                </div>
-                                <div class="feed-item-body">
-                                    <div class="text">
-                                        Average: <b>935.14</b> <br />
-                                        <small>ask: 928.85, bid: 916.31</small>
-                                    </div>
-                                    <div class="time pull-left">
-                                        4 h
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+    <div class="content container" ng-view>
     </div>
 </div>
-
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
   -->
@@ -116,99 +46,5 @@
   <script src="/app/js/controllers.js"></script>
   <script src="/app/js/filters.js"></script>
   <script src="/app/js/directives.js"></script>
-
-
-<script>
-
-    /* Inspired by Lee Byron's test data generator. */
-    function stream_layers(n, m, o) {
-        if (arguments.length < 3) o = 0;
-        function bump(a) {
-            var x = 1 / (.1 + Math.random()),
-                    y = 2 * Math.random() - .5,
-                    z = 10 / (.1 + Math.random());
-            for (var i = 0; i < m; i++) {
-                var w = (i / m - y) * z;
-                a[i] += x * Math.exp(-w * w);
-            }
-        }
-        return d3.range(n).map(function() {
-            var a = [], i;
-            for (i = 0; i < m; i++) a[i] = o + o * Math.random();
-            for (i = 0; i < 5; i++) bump(a);
-            return a.map(stream_index);
-        });
-    }
-
-
-    /* Another layer generator using gamma distributions. */
-    function stream_waves(n, m) {
-        return d3.range(n).map(function(i) {
-            return d3.range(m).map(function(j) {
-                var x = 20 * j / m - i / 3;
-                return 2 * x * Math.exp(-.5 * x);
-            }).map(stream_index);
-        });
-    }
-
-    function stream_index(d, i) {
-        return {x: i, y: Math.max(0, d)};
-    }
-
-
-    function testData(stream_names, points_count) {
-        var now = new Date().getTime(),
-                day = 1000 * 60 * 60 * 24, //milliseconds
-                days_ago_count = 60,
-                days_ago = days_ago_count * day,
-                days_ago_date = now - days_ago,
-                points_count = points_count || 45, //less for better performance
-                day_per_point = days_ago_count / points_count;
-        return stream_layers(stream_names.length, points_count, .1).map(function(data, i) {
-            return {
-                key: stream_names[i],
-                values: data.map(function(d,j){
-                    return {
-                        x: days_ago_date + d.x * day * day_per_point,
-                        y: Math.floor(d.y * 100) //just a coefficient
-                    }
-                })
-            };
-        });
-    }
-
-
-    nv.addGraph(function() {
-        var chart = nv.models.lineChart()
-                .margin({top: 0, bottom: 25, left: 25, right: 0})
-            //.showLegend(false)
-                .color([
-                    '#cf6d51', '#618fb0', '#61b082'
-                ]);
-
-        chart.legend.margin({top: 3});
-
-        chart.yAxis
-                .showMaxMin(false)
-                .tickFormat(d3.format(',.f'));
-
-        chart.xAxis
-                .showMaxMin(false)
-                .tickFormat(function(d) { return d3.time.format('%b %d')(new Date(d)) });
-        var data = testData(['24h average', 'ask', 'bid', 'last', 'total volume'], 30);
-        data[0].area = true;
-        d3.select('#visits-chart svg')
-                .datum(data)
-                .transition().duration(500)
-                .call(chart);
-
-        nv.utils.windowResize(chart.update);
-        lineChart = chart;
-        return chart;
-    });
-
-</script>
-
-
 </body>
 </html>
