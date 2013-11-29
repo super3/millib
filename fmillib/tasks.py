@@ -9,31 +9,46 @@ import calendar
 logger = get_task_logger(__name__)
 app = Celery('tasks')
 
+
 @app.task
 def grab_ticker_usd(url):
     """
-    downloads data through api and inserts them to db
+    downloads data through api
     """
     with urllib.request.urlopen(url) as response:
         data = json.loads(response.read().decode('utf8'))
+        converted_data = convert_btc_log(data)
+        insert_btc_log(converted_data)
 
+
+def convert_btc_log(data):
+    """
+    Checks and converts (timestamp) data
+    """
     for key in ('24h_avg', 'ask', 'bid', 'last', 'total_vol',):
         if not isinstance(data.get(key), float):
-            raise Exception("Invalid price format")
+            raise IncorrectValue("Invalid price format")
 
     try:
         s_time = time.strptime(data['timestamp'], '%a, %d %b %Y %H:%M:%S -0000')
     except ValueError:
-        raise Exception("Invalid datetime format")
+        raise IncorrectValue("Invalid datetime format")
 
-    unix_timestamp = calendar.timegm(s_time)  # epoch time since 1970.1.1 in seconds
+    data['unix_timestamp'] = calendar.timegm(s_time)  # epoch time since 1970.1.1 in seconds
 
-    # the api caches results. It updates a data with some interval, if we grab
-    # data more often than they update then we get same result. In order to avoid
-    # such duplication this code checks if we have already had an entry in the table.
+    return data
+
+
+def insert_btc_log(data):
+    """
+    The api caches results. It updates a data with some interval, if we grab
+    data more often than they update then we get same result. In order to avoid
+    such duplication this code checks if we have already had an entry in the table.
+    """
+
     conn = connect_to_database()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM btc_log WHERE ts=:ts", dict(ts=unix_timestamp))
+    cur.execute("SELECT * FROM btc_log WHERE ts=:ts", dict(ts=data['unix_timestamp']))
     already_inserted_for_this_ts = cur.fetchall()
 
     if not already_inserted_for_this_ts:
@@ -46,10 +61,14 @@ def grab_ticker_usd(url):
                         'bid': data['bid'],
                         'last': data['last'],
                         'total_vol': data['total_vol'],
-                        'ts': unix_timestamp
+                        'ts': data['unix_timestamp']
                     })
 
         conn.commit()
 
     cur.close()
     conn.close()
+
+
+class IncorrectValue(Exception):
+    pass
