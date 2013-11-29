@@ -6,7 +6,6 @@ from db import connect_to_database
 import time
 import calendar
 
-conn = connect_to_database()
 logger = get_task_logger(__name__)
 app = Celery('tasks')
 
@@ -32,22 +31,25 @@ def grab_ticker_usd(url):
     # the api caches results. It updates a data with some interval, if we grab
     # data more often than they update then we get same result. In order to avoid
     # such duplication this code checks if we have already had an entry in the table.
-    cur = conn.execute("SELECT * FROM btc_log WHERE ts=:ts", dict(ts=unix_timestamp))
+    conn = connect_to_database()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM btc_log WHERE ts=:ts", dict(ts=unix_timestamp))
     already_inserted_for_this_ts = cur.fetchall()
-    cur.close()
 
     if not already_inserted_for_this_ts:
-        cur = conn.execute("""INSERT INTO btc_log ('id', '24h_avg', 'ask', 'bid', 'last',
+        cur.execute("""INSERT INTO btc_log ('id', '24h_avg', 'ask', 'bid', 'last',
                            'total_vol', 'ts') VALUES (NULL, :24h_avg, :ask, :bid,
                             :last, :total_vol, :ts)""",
-                           {
-                               '24h_avg': data['24h_avg'],
-                               'ask': data['ask'],
-                               'bid': data['bid'],
-                               'last': data['last'],
-                               'total_vol': data['total_vol'],
-                               'ts': unix_timestamp
-                           })
+                    {
+                        '24h_avg': data['24h_avg'],
+                        'ask': data['ask'],
+                        'bid': data['bid'],
+                        'last': data['last'],
+                        'total_vol': data['total_vol'],
+                        'ts': unix_timestamp
+                    })
 
         conn.commit()
-        cur.close()
+
+    cur.close()
+    conn.close()
