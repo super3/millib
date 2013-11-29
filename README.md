@@ -2,20 +2,61 @@ Millib - Phase One
 ======
 A simplistic Bitcoin pricer checker website in mBTC.
 
-## Quick Info
-* Price API: https://api.bitcoinaverage.com/ticker/USD
-* Template Used: https://wrapbootstrap.com/theme/light-blue-responsive-admin-template-WB0T41TX4
-* Run By: Python + Flask
-* Database: SQLite
-* OS: Debian 7 
+Screenshots
+-----------
 
-## Phase One Process
-1. Download the [Light Blue Responsive Template](https://wrapbootstrap.com/theme/light-blue-responsive-admin-template-WB0T41TX4)
-2. Install Python + Flask + SQLite to your environment. Must run on Debian 7.
-3. Using a CronJob + Python Script grab price data from the [Bitcoin Average API](https://api.bitcoinaverage.com/ticker/USD) and store it in a table in SQLite
-4. We can store the full json dump 24h_avg, ask, bid, last, timestamp, and total_vol. Add an id as the table key for good measure.
-5. Parse the table data to create a chart using the template (use the "visits" box in the template)
-6. Parse the table data to show the price on the right box. Average should be big, and include the bid and ask under  it(use the "feed" box in the template)
-7. Use the magic of Ajax and/or Javascript to update the chart + price box from the database. Don't refresh!
-8. ???
-9. Profit
+.. image:: https://github.com/kaygorodov/millib/raw/master/docs/images/screenshot_dashboard.png
+
+Installation
+-----------
+
+Install redis (It's used as a celery broker):
+
+    $ sudo apt-get install redis-server
+
+Create virtualenv for this project::
+
+    $ virtualenv --python /usr/bin/python3.3 ~/env/millib
+
+Install python dependencies::
+
+    $ . ~/env/millib/bin/activate
+    (millib) $ pip install -r requirements.txt --use-mirrors
+
+Install bower (http://bower.io/)::
+
+    $ sudo npm install bower -g
+
+Go to project's static folder and install all frontend dependencies::
+
+    $ cd static
+    $ bower install
+
+Create your own settings file::
+
+    # my_settings.py
+    # you should set ENVVAR FMILLIB_SETTINGS=<path to your settings file>
+    # for example for me
+    # export FMILLIB_SETTINGS='/home/kaygrodov/projects/millib/fmillib/my_settings.py'
+
+    DATABASE = '/home/kaygrodov/projects/millib/fmillib/fmillib.db' # path to your database
+    DEBUT = True
+
+Set virtual env variable (It depends how you run project. You can do this through supervisor.).
+If you just want to run server in console then::
+
+   (millib) $ export FMILLIB_SETTINGS=<path to your file>
+
+Init database::
+
+   (millib) $ python manage.py init_db
+
+That's it. Run the server::
+
+   (millib) $ python fmillib.py
+   * Running on http://127.0.0.1:5000/
+
+Run the celery::
+
+   (millib) $ celery worker -B --loglevel INFO
+
