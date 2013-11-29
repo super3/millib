@@ -1,4 +1,4 @@
-Millib
+Millib[![Build Status](https://travis-ci.org/kaygorodov/millib.png?branch=master)](https://travis-ci.org/kaygorodov/millib)
 ======
 
 A simplistic Bitcoin pricer checker website in mBTC.
