@@ -60,5 +60,9 @@ Run the celery::
     (millib) $ celery worker -B --loglevel INFO
 
 
-Installation
+Run celery and flask server as services
 -----------
+
+* Flask: http://flask.pocoo.org/docs/deploying/
+* Celery: http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html
+
