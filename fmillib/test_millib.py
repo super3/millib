@@ -10,7 +10,7 @@ VALID_DATA = {'timestamp': 'Fri, 29 Nov 2013 12:04:30 -0000',
               'total_vol': 117275.74}
 
 
-def test_valid_converted_data():
+def test_convert_btc_log_with_valid_data():
     # copy data to avoid side effect
     data = copy.deepcopy(VALID_DATA)
     converted = convert_btc_log(data)
@@ -23,7 +23,7 @@ def test_valid_converted_data():
     assert converted['unix_timestamp'] == 1385726670
 
 
-def test_invalid_converted_data():
+def test_convert_btc_log_with_invalid_data():
 
     for key in ('24h_avg', 'ask', 'bid', 'last', 'total_vol',):
         data = copy.deepcopy(VALID_DATA)
