@@ -4,9 +4,8 @@ import calendar
 import datetime
 
 app = Flask(__name__, static_folder='../static', static_url_path='')
-DATABASE = '/home/kaygrodov/projects/millib/fmillib/fmillib.db'
-DEBUG = True
-app.config.from_object(__name__)
+app.config.from_object('default_settings')
+app.config.from_envvar('FMILLIB_SETTINGS')
 
 #init_db(connect_to_database())
 
