@@ -25,7 +25,9 @@
                         interactive="true"
                         margin="{top: 0, bottom: 25, left: 40, right: 25}"
                         xaxisshowmaxmin="false"
+                        yaxisshowmaxmin="false"
                         xAxisTickFormat="xAxisTickFormatFunction()"
+                        forcey="[]"
                         >
                     <svg></svg>
                 </nvd3-line-chart>
@@ -33,6 +35,16 @@
         </section>
     </div>
     <div class="col-md-4">
+        <section class="widget">
+            <div class="body">
+                <h1><b>{{ lastBtcLog.last }}</b></h1>
+                <p>ask: <b>{{ lastBtcLog.ask }}</b> bid: <b>{{ lastBtcLog.bid }}</b></p>
+            </div>
+
+            <select ng-model="currencyPair" ng-options="c.name for c in currencyPairs">
+            </select>
+        </section>
+
         <section class="widget large">
             <header>
                 <h4>
@@ -43,13 +55,12 @@
             <div class="body">
                 <div id="feed" class="feed">
                     <div class="wrapper">
-                        <section class="feed-item" ng-repeat="btcLog in btcLogs | reverse">
+                        <section class="feed-item" ng-repeat="btcLog in btcLogsConverted | reverse">
                             <div class="icon pull-left">
                                 <i class="fa fa-money"></i>
                             </div>
                             <div class="feed-item-body">
                                 <div class="text">
-                                    Average: <b>{{ btcLog.24h_avg }}</b> <br />
                                     <small>ask: {{ btcLog.ask }}, bid: {{ btcLog.bid}}</small>
                                 </div>
                                 <div class="time pull-left">
