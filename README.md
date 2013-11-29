@@ -6,7 +6,7 @@ A simplistic Bitcoin pricer checker website in mBTC.
 Screenshots
 -----------
 
-![millib dashboard](https://github.com/kaygorodov/millib/raw/master/docs/images/screenshot_dashboard.png)
+![millib dashboard](https://github.com/kaygorodov/millib/raw/master/docs/images/screenshot_dashboard_main.png)
 
 Installation
 -----------
