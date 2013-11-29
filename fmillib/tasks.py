@@ -12,7 +12,7 @@ app = Celery('tasks')
 @app.task
 def grab_ticker_usd(url):
     """
-    downloads data through api and inserts these to db
+    downloads data through api and inserts them to db
     """
     with urllib.request.urlopen(url) as response:
         data = json.loads(response.read().decode('utf8'))
