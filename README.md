@@ -1,5 +1,6 @@
-Millib - Phase One
+Millib
 ======
+
 A simplistic Bitcoin pricer checker website in mBTC.
 
 Screenshots
