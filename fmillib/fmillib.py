@@ -4,7 +4,7 @@ import datetime
 
 app = Flask(__name__, static_folder='../static', static_url_path='')
 app.config.from_object('default_settings')
-app.config.from_envvar('FMILLIB_SETTINGS')
+app.config.from_envvar('FMILLIB_SETTINGS', silent=True)
 
 
 @app.route('/')
