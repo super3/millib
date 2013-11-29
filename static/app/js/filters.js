@@ -5,6 +5,10 @@
 angular.module('millibApp.filters', []).
     filter('reverse', function() {
         return function(items) {
-            return items.slice().reverse();
+            if (items && items.length) {
+                return items.slice().reverse();
+            } else {
+                return items;
+            }
         };
 });
