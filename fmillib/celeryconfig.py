@@ -5,7 +5,7 @@ URL = "https://api.bitcoinaverage.com/ticker/USD"
 CELERYBEAT_SCHEDULE = {
     'add-every-30-seconds': {
         'task': 'tasks.grab_ticker_usd',
-        'schedule': timedelta(seconds=3),
+        'schedule': timedelta(seconds=30),
         'args': (URL, )
     },
 }
