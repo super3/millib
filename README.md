@@ -40,7 +40,7 @@ Create your own settings file::
     # export FMILLIB_SETTINGS='/home/kaygrodov/projects/millib/fmillib/my_settings.py'
 
     DATABASE = '/home/kaygrodov/projects/millib/fmillib/fmillib.db' # path to your database
-    DEBUT = True
+    DEBUG = True
 
 Set virtual env variable (It depends how you run project. You can do this through supervisor.).
 If you just want to run server in console then::
@@ -54,9 +54,11 @@ Init database::
 That's it. Run the server::
 
     (millib) $ python fmillib.py
-   * Running on http://127.0.0.1:5000/
 
 Run the celery::
 
     (millib) $ celery worker -B --loglevel INFO
 
+
+Installation
+-----------
