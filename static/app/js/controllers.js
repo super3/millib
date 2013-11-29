@@ -3,18 +3,33 @@
 /* Controllers */
 
 angular.module('millibApp.controllers', []).
-  controller('DashboardCtrl', ['$http', '$scope', function($http, $scope) {
+  controller('DashboardCtrl', ['$http', '$scope', '$timeout', function($http, $scope, $timeout) {
         $scope.btcLogs = [];
+        $scope.newBtcLogs = [];
         $scope.lastTimestamp = 0;
-        $http.post('/get_btc_logs', {since: $scope.lastTimestamp}).success(function(data) {
-            var formatedBtcLogs = [];
-            angular.forEach(data.btc_logs, function(item) {
-                item.date = new Date(item.ts * 1000);
-                formatedBtcLogs.push(item);
+
+        var updateBtcLogs = function () {
+            $http.post('/get_btc_logs', {since: $scope.lastTimestamp}).success(function(data) {
+                console.log(data.btc_logs.length);
+                if(data.btc_logs.length) {
+                    var formatedBtcLogs = [];
+                    angular.forEach(data.btc_logs, function(item) {
+                        item.date = new Date(item.ts * 1000);
+                        formatedBtcLogs.push(item);
+                    });
+                    $scope.newBtcLogs  = formatedBtcLogs;
+                    $scope.lastTimestamp = $scope.newBtcLogs[$scope.newBtcLogs.length-1].ts;
+
+                    var btcLogs = angular.copy($scope.btcLogs);
+                    angular.forEach($scope.newBtcLogs, function(v) { btcLogs.push(v)});
+                    $scope.btcLogs = btcLogs;
+                }
             });
-            $scope.btcLogs = formatedBtcLogs;
-            $scope.lastTimestamp = $scope.btcLogs[$scope.btcLogs.length-1].ts;
-        });
+
+            $timeout(updateBtcLogs, 5000);
+        };
+
+        updateBtcLogs();
 
         var chartLines = ['24h_avg', 'ask', 'bid', 'last', 'total_vol'];
 
@@ -41,7 +56,7 @@ angular.module('millibApp.controllers', []).
             }
         ];
 
-        $scope.$watch('btcLogs', function (value) {
+        $scope.$watch('newBtcLogs', function (value) {
             var newChartData = angular.copy($scope.chartData);
             angular.forEach(value, function(item) {
                 angular.forEach(chartLines, function(line, place) {

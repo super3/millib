@@ -24,8 +24,7 @@ def get_btc_logs():
     for the last NUM_OF_DAYS days
     """
     NUM_OF_DAYS = 90
-
-    since = int(request.form.get('since', 0))
+    since = int(request.json.get('since', 0))
 
     min_time = datetime.datetime.now() - datetime.timedelta(days=NUM_OF_DAYS)
     min_time_ts = calendar.timegm(min_time.utctimetuple())
@@ -38,6 +37,7 @@ def get_btc_logs():
     rv = cur.fetchall()
     cur.close()
     return jsonify({'btc_logs': rv})
+
 
 @app.before_request
 def before_request():
