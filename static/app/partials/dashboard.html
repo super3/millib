@@ -14,16 +14,17 @@
                     Stats
                 </h4>
             </header>
-            <div class="body no-margin" style="height: 295px;">
+            <div class="body no-margin line-chart-widget-body">
                 <nvd3-line-chart
                         showlegend="true"
                         data="chartData "
-                        id="exampleId"
+                        id="visits-chart"
                         showXAxis="true"
                         showYAxis="true"
                         tooltips="true"
                         interactive="true"
-                        margin="{left:70,top:50,bottom:50,right:50}"
+                        margin="{top: 0, bottom: 25, left: 40, right: 25}"
+                        xaxisshowmaxmin="false"
                         xAxisTickFormat="xAxisTickFormatFunction()"
                         >
                     <svg></svg>
@@ -40,7 +41,7 @@
                 </h4>
             </header>
             <div class="body">
-                <div id="feed" class="feed" style="overflow-y: scroll">
+                <div id="feed" class="feed">
                     <div class="wrapper">
                         <section class="feed-item" ng-repeat="btcLog in btcLogs | reverse">
                             <div class="icon pull-left">
