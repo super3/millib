@@ -13,13 +13,12 @@
     <h4><a href="/#">Millib</a></h4>
 </div>
 
-
 <nav id="sidebar" class="sidebar nav-collapse collapse">
     <ul id="side-nav" class="side-nav">
-        <li>
+        <li ng-class="{active: $location.path()=='/dashboard'}">
             <a href="/#"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
         </li>
-        <li>
+        <li ng-class="{active: $location.path()=='/about'}">
             <a href="/#about"><i class="fa fa-info"></i> <span class="name">About</span></a>
         </li>
     </ul>
