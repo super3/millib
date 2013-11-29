@@ -15,14 +15,32 @@ Install redis (It's used as a celery broker):
 
     $ sudo apt-get install redis-server
 
+
+Python 3.3 for Ubuntu 12.04
+
+    sudo apt-get install python-software-properties
+    sudo add-apt-repository ppa:fkrull/deadsnakes
+    sudo apt-get update
+    sudo apt-get install python3.3
+
 Create virtualenv for this project::
 
     $ virtualenv --python /usr/bin/python3.3 ~/env/millib
+
+Be sure that you have virtualenv > 1.8.2 (Python 3.3.0 needs virtualenv 1.8.2)
+
+    $ sudo pip install -U virtualenv
 
 Install python dependencies::
 
     $ . ~/env/millib/bin/activate
     (millib) $ pip install -r requirements.txt --use-mirrors
+
+Install node.js:
+
+    sudo add-apt-repository ppa:chris-lea/node.js
+    sudo apt-get update
+    sudo apt-get install npm nodejs
 
 Install bower (http://bower.io/)::
 
