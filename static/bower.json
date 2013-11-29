@@ -19,8 +19,14 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.2",
+    "angular-route": "~1.2.2",
+    "angular-route": "~1.2.2",
+    "nvd3": "~1.1.14-beta",
+    "angularjs-nvd3-directives": "~0.0.2",
+    "d3": "~3.3.5",
+    "nvd3": "~1.1.14",
     "bootstrap": "~3.0.2",
-    "angularjs-nvd3-directives": "~0.0.2-beta"
-  }
+    "jquery": "~2.0.3",
+    "moment": "~2.3.1"
+   }
 }
