@@ -49,7 +49,7 @@ If you just want to run server in console then::
     (millib) $ export FMILLIB_SETTINGS=<path to your file>
 
 Init database::
-
+    (millib) $ cd fmillib
     (millib) $ python manage.py init_db
 
 That's it. Run the server::
@@ -59,6 +59,10 @@ That's it. Run the server::
 Run the celery::
 
     (millib) $ celery worker -B --loglevel INFO
+
+Run tests (you must run in the fmillib directory):
+
+    (millib) $ py.test
 
 
 Run celery and flask server as services
