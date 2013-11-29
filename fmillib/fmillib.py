@@ -1,13 +1,10 @@
 from flask import Flask, g, jsonify, request
-from db import connect_to_database, init_db
 import calendar
 import datetime
 
 app = Flask(__name__, static_folder='../static', static_url_path='')
 app.config.from_object('default_settings')
 app.config.from_envvar('FMILLIB_SETTINGS')
-
-#init_db(connect_to_database())
 
 
 @app.route('/')
@@ -40,6 +37,7 @@ def get_btc_logs():
 
 @app.before_request
 def before_request():
+    from db import connect_to_database
     g.db = connect_to_database()
 
 
