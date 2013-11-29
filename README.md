@@ -5,7 +5,7 @@ A simplistic Bitcoin pricer checker website in mBTC.
 Screenshots
 -----------
 
-.. image:: https://github.com/kaygorodov/millib/raw/master/docs/images/screenshot_dashboard.png
+![millib dashboard](https://github.com/kaygorodov/millib/raw/master/docs/images/screenshot_dashboard.png)
 
 Installation
 -----------
@@ -45,18 +45,18 @@ Create your own settings file::
 Set virtual env variable (It depends how you run project. You can do this through supervisor.).
 If you just want to run server in console then::
 
-   (millib) $ export FMILLIB_SETTINGS=<path to your file>
+    (millib) $ export FMILLIB_SETTINGS=<path to your file>
 
 Init database::
 
-   (millib) $ python manage.py init_db
+    (millib) $ python manage.py init_db
 
 That's it. Run the server::
 
-   (millib) $ python fmillib.py
+    (millib) $ python fmillib.py
    * Running on http://127.0.0.1:5000/
 
 Run the celery::
 
-   (millib) $ celery worker -B --loglevel INFO
+    (millib) $ celery worker -B --loglevel INFO
 
