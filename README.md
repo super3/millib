@@ -49,6 +49,7 @@ If you just want to run server in console then::
     (millib) $ export FMILLIB_SETTINGS=<path to your file>
 
 Init database::
+
     (millib) $ cd fmillib
     (millib) $ python manage.py init_db
 
