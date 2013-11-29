@@ -3,9 +3,9 @@ from datetime import timedelta
 URL = "https://api.bitcoinaverage.com/ticker/USD"
 
 CELERYBEAT_SCHEDULE = {
-    'add-every-30-seconds': {
+    'add-every-60-seconds': {
         'task': 'tasks.grab_ticker_usd',
-        'schedule': timedelta(seconds=30),
+        'schedule': timedelta(seconds=60),
         'args': (URL, )
     },
 }
