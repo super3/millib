@@ -20,6 +20,7 @@ def get_btc_logs():
     for the last NUM_OF_DAYS days
     """
     NUM_OF_DAYS = 90
+    MAX_OF_BTC_LOGS = 400
     since = int(request.json.get('since', 0))
 
     min_time = datetime.datetime.now() - datetime.timedelta(days=NUM_OF_DAYS)
@@ -28,10 +29,11 @@ def get_btc_logs():
     if since < min_time_ts:
         since = min_time_ts
 
-    cur = g.db.execute("SELECT * FROM btc_log WHERE ts>:since ORDER BY ts",
-                       dict(since=since))
+    cur = g.db.execute("SELECT * FROM btc_log WHERE ts>:since ORDER BY ts DESC LIMIT :limit",
+                       dict(since=since, limit=MAX_OF_BTC_LOGS))
     rv = cur.fetchall()
     cur.close()
+    rv.reverse()
     return jsonify({'btc_logs': rv})
 
 
