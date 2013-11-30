@@ -90,3 +90,41 @@ Run celery and flask server as services
 * Flask: http://flask.pocoo.org/docs/deploying/
 * Celery: http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html
 
+Add a supervisor conf file for gunicorn::
+
+    root@millib:/etc# cat /etc/supervisor/conf.d/gunicorn_millib.conf
+
+    [program:millib]
+    command = /var/www/env/millib/bin/gunicorn -b 127.0.0.1:9999 --pythonpath /var/www/millib/fmillib/ fmillib:app
+    user = www-data
+    stdout_logfile = /var/www/gunicorn_millib_supervisor.log
+    redirect_stderr = true
+
+Start service::
+
+    root@millib:/etc# supervisorctl start millib
+    millib: started
+
+Add nginx proxy from 80 port to 9999::
+
+    location / {
+        proxy_pass       http://localhost:8000;
+        proxy_set_header Host      $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+Add a supervisor conf file for celery::
+
+    root@millib:/etc# cat /etc/supervisor/conf.d/celery_millib.conf
+    [program:celery]
+    command = /var/www/env/millib/bin/celery worker -B --loglevel INFO --workdir=/var/www/millib/fmillib/
+    user = www-data
+    stdout_logfile = /var/www/celery_millib_supervisor.log
+    redirect_stderr = true
+
+Start the service::
+
+    root@millib:/etc# supervisorctl start millib
+    millib: started
+
+That's it.
