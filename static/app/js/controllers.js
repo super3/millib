@@ -21,6 +21,7 @@ angular.module('millibApp.controllers', []).
             }
         ];
 
+        console.log("Set default value.");
         $scope.currencyPair = $scope.currencyPairs[0];
 
         var updateBtcLogs = function () {
@@ -45,13 +46,9 @@ angular.module('millibApp.controllers', []).
 
         updateBtcLogs();
 
-        var currencyFields = ['24h_avg', 'ask', 'bid', 'last'];//, 'total_vol'];
+        var currencyFields = ['ask', 'bid', 'last'];//, 'total_vol'];
 
         var initialChartData = [
-            {
-                "key": "24H average",
-                "values": []
-            },
             {
                 "key": "ask",
                 "values": [],
@@ -102,7 +99,14 @@ angular.module('millibApp.controllers', []).
             return convertedData;
         }
 
+        $scope.sayHello = function() {
+            console.log("currencyPair: " + $scope.currencyPair.name);
+            console.log("currencyPairs: " + $scope.currencyPairs);
+            $scope.currencyPair = $scope.currencyPairs[1];
+        };
+
         $scope.$watch('currencyPair', function (val) {
+            console.log("Updated currencyPair");
             if ($scope.btcLogs.length && val) {
                 $scope.btcLogsConverted = convertData($scope.btcLogs, val);
             }
@@ -110,7 +114,7 @@ angular.module('millibApp.controllers', []).
 
         $scope.xAxisTickFormatFunction = function(){
             return function(d){
-                return d3.time.format('%b %d %I:%M %p')(moment.unix(d).toDate());
+                return d3.time.format('%I:%M %p')(moment.unix(d).toDate());
             }
         };
 

@@ -1,3 +1,6 @@
 .nvtooltip h3{background-color: transparent;border-bottom: none;}
 .line-chart-widget-body{height: 295px;}
 .feed{overflow-y: scroll}
+.centred-text { text-align: center; }
+.bid { color: #FF4242; }
+.ask { color: #7FFF42; }

@@ -1,10 +1,12 @@
-from celery import Celery
-from celery.utils.log import get_task_logger
 import urllib.request
 import json
-from db import connect_to_database
 import time
 import calendar
+
+from celery import Celery
+from celery.utils.log import get_task_logger
+
+from db import connect_to_database
 
 logger = get_task_logger(__name__)
 app = Celery('tasks')
@@ -19,6 +21,10 @@ def grab_ticker_usd(url):
         data = json.loads(response.read().decode('utf8'))
         converted_data = convert_btc_log(data)
         insert_btc_log(converted_data)
+
+
+def grab_bitstamp():
+    url = 'https://www.bitstamp.net/api/ticker/'
 
 
 def convert_btc_log(data):

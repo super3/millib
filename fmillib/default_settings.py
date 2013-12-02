@@ -1,3 +1,3 @@
-DEBUG = False
+DEBUG = True
 TEST = False
-DATABASE = '/tmp/fmillib.db'
+DATABASE = '/tmp/fmilib.db'
