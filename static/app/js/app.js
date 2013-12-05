@@ -16,3 +16,5 @@ config(['$routeProvider', function($routeProvider) {
 
     $rootScope.$location = $location;
 });
+
+$('.dropdown-toggle').dropdown();

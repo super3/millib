@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <h2 class="page-title">Dashboard <small>Bitcoin price checker in <b>mBTC</b></small></h2>
+        <h2 class="page-title">Charts</h2>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-md-8">
@@ -36,13 +35,18 @@
     </div>
     <div class="col-md-4">
         <section class="widget">
-            <div class="body">
-                <h1><b>{{ lastBtcLog.last }}</b></h1>
-                <p>ask: <b>{{ lastBtcLog.ask }}</b> bid: <b>{{ lastBtcLog.bid }}</b></p>
+            <div class="body centred-text">
+                <h1><b>${{ lastBtcLog.last }}</b><small>{{ currencyPair.name }}</small></h1>
+                <p>ask: <b class="ask">{{ lastBtcLog.ask }}</b> bid: <b class="bid">{{ lastBtcLog.bid }}</b></p>
             </div>
-
-            <select ng-model="currencyPair" ng-options="c.name for c in currencyPairs">
-            </select>
+            
+            <div class="row">
+                <div class="col-md-2 col-md-offset-4">
+                    <select ng-model="currencyPair" ng-options="c.name for c in currencyPairs">
+                        
+                    </select>                    
+                </div>
+            </div>
         </section>
 
         <section class="widget large">

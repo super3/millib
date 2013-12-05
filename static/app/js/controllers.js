@@ -45,13 +45,9 @@ angular.module('millibApp.controllers', []).
 
         updateBtcLogs();
 
-        var currencyFields = ['24h_avg', 'ask', 'bid', 'last'];//, 'total_vol'];
+        var currencyFields = ['ask', 'bid', 'last'];//, 'total_vol'];
 
         var initialChartData = [
-            {
-                "key": "24H average",
-                "values": []
-            },
             {
                 "key": "ask",
                 "values": [],
@@ -110,7 +106,7 @@ angular.module('millibApp.controllers', []).
 
         $scope.xAxisTickFormatFunction = function(){
             return function(d){
-                return d3.time.format('%b %d %I:%M %p')(moment.unix(d).toDate());
+                return d3.time.format('%I:%M %p')(moment.unix(d).toDate());
             }
         };
 
