@@ -36,18 +36,15 @@
     <div class="col-md-4">
         <section class="widget">
             <div class="body centred-text">
-                <h1><b>${{ lastBtcLog.last }} <small>{{ currencyPair.name }}</small></b></h1>
+                <h1><b>${{ lastBtcLog.last }}</b><small>{{ currencyPair.name }}</small></h1>
                 <p>ask: <b class="ask">{{ lastBtcLog.ask }}</b> bid: <b class="bid">{{ lastBtcLog.bid }}</b></p>
             </div>
             
-            <div class="row" ng-controller="DashboardCtrl">
+            <div class="row">
                 <div class="col-md-2 col-md-offset-4">
-                    <div class="btn-group center-block">
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-original-title="" title="" >{{ currencyPair.name }} <i class="fa fa-caret-down"></i></button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="currency in currencyPairs" ng-click="sayHello()"><a href="#">{{currency.name}}</a></li>
-                        </ul>
-                    </div>                    
+                    <select ng-model="currencyPair" ng-options="c.name for c in currencyPairs">
+                        
+                    </select>                    
                 </div>
             </div>
         </section>
@@ -77,42 +74,6 @@
                         </section>
                     </div>
                 </div>
-            </div>
-        </section>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <section class="widget">
-            <header>
-                <h2>Tables</h2>
-            </header>
-            <div class="body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Total Supply</th>
-                            <th>BTC Price</th>
-                            <th>USD Price</th>
-                            <th>Market Cap</th>
-                            <th>Market Cap Graph</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for data in parsed_data %}
-                        <tr>
-                            <td><img src="http://coinmarketcap.com/img/CryptogenicBullion.png" alt=""></td>
-                            <td>{{ data.total_supply }}</td>
-                            <td>{{ data.btc_price }}</td>
-                            <td>{{ data.usd_price }}</td>
-                            <td>{{ data.market_cap }}</td>
-                            <td>graph</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
             </div>
         </section>
     </div>
