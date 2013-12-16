@@ -21,6 +21,7 @@ angular.module('millibApp.controllers', []).
             }
         ];
 
+        console.log("Set default value.");
         $scope.currencyPair = $scope.currencyPairs[0];
 
         var updateBtcLogs = function () {
@@ -98,7 +99,14 @@ angular.module('millibApp.controllers', []).
             return convertedData;
         }
 
+        $scope.sayHello = function() {
+            console.log("currencyPair: " + $scope.currencyPair.name);
+            console.log("currencyPairs: " + $scope.currencyPairs);
+            $scope.currencyPair = $scope.currencyPairs[1];
+        };
+
         $scope.$watch('currencyPair', function (val) {
+            console.log("Updated currencyPair");
             if ($scope.btcLogs.length && val) {
                 $scope.btcLogsConverted = convertData($scope.btcLogs, val);
             }
