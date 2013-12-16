@@ -17,3 +17,7 @@
 
 - Run celery worker (celery worker -b --loglevel INFO)
 - Run application (python application.py)
+
+# Screenshots
+
+![Main Dashboard](https://raw.github.com/dizlv/millib/newcore/screenshot_dashboard_main.png)
